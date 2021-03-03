@@ -1,0 +1,53 @@
+package com.bida.testtask.aws;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
+
+@Component
+public class WorkWithAWS {
+
+    //    @Value("${aws.access}")
+    private String awsAccess;
+    //    @Value("${aws.secret}")
+    private String awsSecret;
+    //    @Value("${aws.name}")
+    private String awsBucketName;
+
+    private AWSCredentials credentials;
+    private AmazonS3 s3client;
+
+
+    public WorkWithAWS(@Value("${aws.name}") String awsBucketName,
+                       @Value("${aws.secret}") String awsSecret,
+                       @Value("${aws.access}") String awsAccess){
+//    public WorkWithAWS(String awsBucketName, String awsSecret, String awsAccess){
+        this.awsBucketName = awsBucketName;
+        this.awsSecret = awsSecret;
+        this.awsAccess = awsAccess;
+        credentials = new BasicAWSCredentials(awsAccess, awsSecret);
+        s3client = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(Regions.EU_CENTRAL_1)
+                .build();
+    }
+
+    public String uploadFile(String name, InputStream inputStream){
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.addUserMetadata("shop", "image");
+        PutObjectRequest putObjectRequest = new PutObjectRequest(awsBucketName, name, inputStream, metadata);
+        s3client.putObject(putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead));
+        return s3client.getUrl(awsBucketName, name).toString();
+    }
+}

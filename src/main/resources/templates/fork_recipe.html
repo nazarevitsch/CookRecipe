@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
+    <title>Fork Recipe</title>
+</head>
+<body>
+    <ul>
+        <li><a th:href="@{/}">Index</a></li>
+        <li><a th:href="@{/recipes}">List Of Recipes</a></li>
+        <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
+        <li><a th:href="@{/user_room}">User Room</a></li>
+    </ul>
+
+    <div>
+        <label>You fork this recipe: <a th:utext="${recipe.getName()}" th:href="'/recipe?id=' + ${recipe.getId()}"></a></label>
+        <input style="display: none" th:id="forkedRecipeId" th:value="${recipe.getId()}">
+    </div>
+    <div>
+        <label><input type="text" id="name"/></label>
+        <label><textarea placeholder="Description" id="description"></textarea></label>
+        <input style="border: none" type="file" onchange="showImage(event)" id="mainImage"/>
+        <img id="showMainImage"/>
+        <button class="beauty" type="button" onclick="fork_recipe()">Add Product</button>
+    </div>
+</body>
+</html>

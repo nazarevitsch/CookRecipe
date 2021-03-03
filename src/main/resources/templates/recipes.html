@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of recipes</title>
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/}">Index</a></li>
+    <li><a th:href="@{/recipes}">List Of Recipes</a></li>
+    <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
+    <li><a th:href="@{/user_room}">User Room</a></li>
+</ul>
+<th:block th:each="recipe : ${recipes}">
+    <div><a th:href="'/recipe?id=' + ${recipe.getId()}">
+        <div style="display: flex">
+            <img th:src="${recipe.getImageLink()}">
+            <div>
+                <p th:utext="'Title: ' + ${recipe.getName()}"></p>
+                <p th:utext="'Date of creation: ' + ${recipe.getCreationDate()} + '  ' + ${recipe.getCreationTime()}" ></p>
+            </div>
+        </div>
+        <p th:utext="'Description:   ' + ${recipe.getDescription()}"></p>
+    </a></div>
+</th:block>
+</body>
+<script>
+</script>
+</html>
