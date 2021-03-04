@@ -2,6 +2,7 @@ package com.bida.testtask.service;
 
 import com.bida.testtask.domain.User;
 import com.bida.testtask.repository.UserDAO;
+import com.bida.testtask.service.dto.MyUserDetails;
 import com.bida.testtask.service.dto.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,8 +35,6 @@ public class UserService implements UserDetailsService {
         if (user == null){
             throw new UsernameNotFoundException(s);
         }
-        return org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(),
-                mapRolesToAuthorities(Collections.singletonList(user.getUserRole())));
+        return new MyUserDetails(user);
     }
 }

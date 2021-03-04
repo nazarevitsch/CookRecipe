@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-    <ul>
-        <li><a th:href="@{/}">Index</a></li>
-        <li><a th:href="@{/recipes}">List Of Recipes</a></li>
-        <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
-        <li><a th:href="@{/user_room}">User Room</a></li>
-    </ul>
-
+<ul id="header">
+    <li><a th:href="@{/}">Index</a></li>
+    <li><a th:href="@{/recipes}">List Of Recipes</a></li>
+    <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
+    <li><a th:href="@{/user_room}">User Room</a></li>
+</ul>
 </body>
 </html>

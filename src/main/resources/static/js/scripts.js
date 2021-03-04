@@ -23,6 +23,27 @@ function fork_recipe() {
     add_recipe_request(recipe);
 }
 
+function update_recipe() {
+    let recipe = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
+        id: document.getElementById('recipeId').value,
+    };
+    $.ajax({
+        url: "/update_recipe",
+        type: "POST",
+        contentType: 'application/json',
+        dataType: 'json',
+        async: false,
+        data: JSON.stringify(recipe),
+        success: (date) => {
+        }
+    });
+    if (document.getElementById('mainImage').files[0] !== undefined){
+        uploadMainImage(recipe.id)
+    }
+}
+
 function add_recipe_request(recipe) {
     $.ajax({
         url: "/add_recipe",
@@ -32,7 +53,6 @@ function add_recipe_request(recipe) {
         async: false,
         data: JSON.stringify(recipe),
         success: (date) => {
-            console.log(date);
             uploadMainImage(date)
         }
     });
@@ -46,6 +66,6 @@ function uploadMainImage(id) {
         method: 'POST',
         body: formData,
     }).then(data => {
-        if (data.status === 200) window.location.replace("/");
+        if (data.status === 200) window.location.replace("/recipe?id=" + id);
     });
 }

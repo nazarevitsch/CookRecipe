@@ -26,13 +26,16 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registerNewUser(@ModelAttribute UserRegistrationDTO userDTO,
                                   BindingResult result){
-        System.out.println(userDTO);
         User existedUser = userService.findUserByEmail(userDTO.getEmail());
-        System.out.println(existedUser);
         if (existedUser != null){
             result.rejectValue("username", null, "There is already an account registered with that username");
         }
         userService.save(userDTO);
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
     }
 }

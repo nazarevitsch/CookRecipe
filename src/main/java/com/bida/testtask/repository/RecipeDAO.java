@@ -14,13 +14,24 @@ public interface RecipeDAO extends JpaRepository<Recipe, Long> {
 
     List<Recipe> findAll();
 
+    List<Recipe> findAllByUserId(Long userId);
+
     Recipe getById(Long id);
 
     @Modifying
     @Transactional
     @Query(value = "update recipes\n" +
             "set image_link = :link\n" +
-            "where id = :id",
+            "where id = :id and user_id = :userId",
             nativeQuery = true)
-    void setImageLinkById(Long id, String link);
+    void setImageLinkByIdAndUserId(Long id, String link, Long userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update recipes\n" +
+            "set name = :name,\n" +
+            "description = :description\n" +
+            "where id = :id and user_id = :userId",
+            nativeQuery = true)
+    void updateRecipeNameAndDescriptionByIdAndUserId(Long id, String name, String description, Long userId);
 }

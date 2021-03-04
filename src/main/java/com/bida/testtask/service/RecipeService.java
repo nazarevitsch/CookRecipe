@@ -15,10 +15,18 @@ public class RecipeService {
     @Autowired
     private RecipeDAO recipeDAO;
 
-    public Recipe save(Recipe recipe) {
+    @Autowired
+    private UserService userService;
+
+    public Recipe save(Recipe recipe, String userEmail) {
         recipe.setCreationDate(new Date(new java.util.Date().getTime()));
         recipe.setCreationTime(new Time(recipe.getCreationDate().getTime()));
+        recipe.setUserId(userService.findUserByEmail(userEmail).getId());
         return recipeDAO.save(recipe);
+    }
+
+    public List<Recipe> getAllRecipeByUserEmail(String email){
+        return recipeDAO.findAllByUserId(userService.findUserByEmail(email).getId());
     }
 
     public Recipe getRecipeById(Long id){
@@ -29,7 +37,12 @@ public class RecipeService {
         return recipeDAO.findAll();
     }
 
-    public void setImageLinkById(Long id, String link){
-        recipeDAO.setImageLinkById(id, link);
+    public void setImageLinkById(Long id, String link, String email){
+        recipeDAO.setImageLinkByIdAndUserId(id, link, userService.findUserByEmail(email).getId());
+    }
+
+    public void updateRecipeNameAndDescriptionByUserEmail(Recipe recipe, String email){
+        recipeDAO.updateRecipeNameAndDescriptionByIdAndUserId(recipe.getId(), recipe.getName(),
+                recipe.getDescription(), userService.findUserByEmail(email).getId());
     }
 }

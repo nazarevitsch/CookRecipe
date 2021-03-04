@@ -1,0 +1,48 @@
+.recipe-card {
+    display: flex;
+    width: 80%;
+    margin: 30px auto;
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    padding: 20px;
+    background: whitesmoke;
+    border-radius: 20px;
+    transition: ease-in-out box-shadow 0.5s;
+}
+
+.recipe-card:hover {
+    box-shadow: 0px 16px 32px 0px rgba(34, 60, 80, 0.3);
+}
+
+.recipe-card img {
+    display: block;
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+}
+
+.recipe-card a {
+    text-decoration: none;
+    color: black;
+}
+
+.recipe-info {
+    margin: 20px;
+}
+
+.recipe-name {
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 32px;
+    margin: 0;
+}
+
+.recipe-creation {
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.recipe-description {
+    margin-top: 10px;
+    font-size: 24px;
+}

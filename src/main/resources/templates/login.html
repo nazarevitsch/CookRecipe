@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link th:href="@{/style/login_registration.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<ul id="header">
+    <li><a th:href="@{/}">Index</a></li>
+    <li><a th:href="@{/recipes}">List Of Recipes</a></li>
+    <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
+    <li><a th:href="@{/user_room}">User Room</a></li>
+</ul>
+<div id="content">
+    <form id="login-form" th:action="@{/login}" method="post">
+        <div id="form-title">Log In</div>
+        <div th:if="${param.error}">
+            <div class="warning">Invalid username or
+                password.
+            </div>
+        </div>
+        <div class="logged-out" th:if="${param.logout}">
+            <div>You have been logged out.</div>
+        </div>
+        <div>
+            <label for="email">Username:</label> <input type="text"
+                                                        id="email" name="username" autofocus="autofocus"/>
+        </div>
+        <div>
+            <label for="password">Password:</label> <input type="password"
+                                                           id="password" name="password" class="form-control"/>
+        </div>
+        <div>
+            <input type="submit" name="login-submit" id="login-submit" value="Log In"/>
+        </div>
+        <div>
+            <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>

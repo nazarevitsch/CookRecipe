@@ -1,0 +1,50 @@
+label a{
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: linear color 0.2s;
+}
+
+label a:hover {
+    color: #722A1D;
+}
+
+#recipe-info{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 30px auto;
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    padding: 20px;
+    background: whitesmoke;
+    border-radius: 20px;
+}
+
+label{
+    margin: 10px;
+    font-size: 20px;
+}
+input, textarea, button{
+    margin: 10px;
+    font-size: 18px;
+}
+
+textarea{
+    height: 70px;
+}
+
+button{
+    width: 300px;
+    height: 50px;
+    margin: 10px auto;
+}
+
+img{
+    display: block;
+    max-width: 80%;
+    max-height: 500px;
+    height: auto;
+    width: auto;
+    border-radius: 10px;
+    margin: 10px auto;
+}

@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>List of recipes</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link th:href="@{/style/recipes.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-<ul>
+<ul id="header">
     <li><a th:href="@{/}">Index</a></li>
     <li><a th:href="@{/recipes}">List Of Recipes</a></li>
     <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
     <li><a th:href="@{/user_room}">User Room</a></li>
 </ul>
-<th:block th:each="recipe : ${recipes}">
-    <div><a th:href="'/recipe?id=' + ${recipe.getId()}">
-        <div style="display: flex">
-            <img th:src="${recipe.getImageLink()}">
-            <div>
-                <p th:utext="'Title: ' + ${recipe.getName()}"></p>
-                <p th:utext="'Date of creation: ' + ${recipe.getCreationDate()} + '  ' + ${recipe.getCreationTime()}" ></p>
+<div id="content">
+    <th:block th:each="recipe : ${recipes}">
+        <div class="recipe-card"><a th:href="'/recipe?id=' + ${recipe.getId()}">
+            <div style="display: flex">
+                <img th:src="${recipe.getImageLink()}">
+                <div class="recipe-info">
+                    <p class="recipe-name" th:utext="'Title: ' + ${recipe.getName()}"></p>
+                    <p class="recipe-creation"
+                       th:utext="'Date of creation: ' + ${recipe.getCreationDate()} + '  ' + ${recipe.getCreationTime()}"></p>
+                    <p class="recipe-description" th:utext="'Description:   ' + ${recipe.getDescription()}"></p>
+                </div>
             </div>
-        </div>
-        <p th:utext="'Description:   ' + ${recipe.getDescription()}"></p>
-    </a></div>
-</th:block>
+        </a></div>
+    </th:block>
+</div>
 </body>
-<script>
-</script>
 </html>

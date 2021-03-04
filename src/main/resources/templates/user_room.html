@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Room</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link th:href="@{/style/user_room.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
+    <script src="https://kit.fontawesome.com/54144e2123.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<ul id="header">
+    <li><a th:href="@{/}">Index</a></li>
+    <li><a th:href="@{/recipes}">List Of Recipes</a></li>
+    <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
+    <li><a th:href="@{/user_room}">User Room</a></li>
+</ul>
+<div id="content">
+    <h2 th:utext="'Hello, ' + ${user.getName()} + '!'"></h2>
+    <button><a th:href="@{/logout}">LOGOUT</a></button>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Open</td>
+            <td>Update</td>
+            <td>Fork</td>
+        </tr>
+        <th:block th:each="recipe : ${recipes}">
+            <tr>
+                <td th:utext="${recipe.getId()}"></td>
+                <td class="recipe-name" th:utext="${recipe.getName()}"></td>
+                <td><a th:href="'/recipe?id=' + ${recipe.getId()}"><i class="fas fa-book-open"></i>Open this Recipe</a></td>
+                <td><a th:href="'/update_recipe?id=' + ${recipe.getId()}"><i class="fas fa-edit"></i>Update this Recipe</a></td>
+                <td><a th:href="'/fork_recipe?id=' + ${recipe.getId()}"><i class="fas fa-code-branch"></i>Fork this Recipe</a></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

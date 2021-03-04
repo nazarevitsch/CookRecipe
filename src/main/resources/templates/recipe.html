@@ -2,31 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Recipe: </title>
+    <title>Recipe</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link th:href="@{/style/recipe.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/54144e2123.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-<ul>
+<ul id="header">
     <li><a th:href="@{/}">Index</a></li>
     <li><a th:href="@{/recipes}">List Of Recipes</a></li>
     <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
     <li><a th:href="@{/user_room}">User Room</a></li>
 </ul>
-<div>
-    <div>
-        <h2 th:utext="${recipe.getName()}"></h2>
-        <button th:onclick="'loadPage(' + ${recipe.getId()} + ')'">Fork this Recipe</button>
-    </div>
-    <label>This Recipe was forked from it: <a th:href="'/recipe?id=' + ${recipe.getId()}">Recipe</a></label>
-    <div>
-        <img th:src="${recipe.getImageLink()}">
-        <p th:utext="${recipe.getDescription()}"></p>
+<div id="content">
+    <div id="recipe-info">
+        <div>
+            <h2 th:utext="${recipe.getName()}"></h2>
+            <button th:onclick="'loadPage(' + ${recipe.getId()} + ')'"><i class="fas fa-code-branch"></i>Fork this Recipe</button>
+        </div>
+        <label>This Recipe was forked from it: <a th:href="'/recipe?id=' + ${recipe.getId()}">Recipe</a></label>
+        <div id="photo-description">
+            <img th:src="${recipe.getImageLink()}">
+            <p th:utext="${recipe.getDescription()}"></p>
+        </div>
     </div>
 </div>
-
 </body>
 <script>
     function loadPage(id) {
-        console.log(id)
         window.location.replace('/fork_recipe?id=' + id);
     }
 </script>

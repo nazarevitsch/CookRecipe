@@ -1,0 +1,62 @@
+
+td a:hover {
+    color: #722A1D;
+}
+
+h2{
+    font-size: 36px;
+    margin: 20px;
+}
+
+button{
+    margin: 10px;
+    height: 30px;
+    width: 80px;
+}
+
+table {
+    display: table;
+    margin: 10px auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    background: whitesmoke;
+    width: 70%;
+}
+
+td {
+    border-bottom: 2px solid #D4D4D4;
+    border-top: 2px solid #D4D4D4;
+    padding: 10px;
+    text-align: center;
+    height: 50px;
+    transition: linear border 0.2s;
+}
+
+tr:hover td{
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+}
+
+tr:first-child td {
+    border-top: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+
+td a, button a{
+    color: #000000;
+    text-decoration: none;
+    transition: linear color 0.2s;
+}
+
+i{
+    margin: 0 3px;
+}
+
+.recipe-name{
+    font-family: 'RocknRoll One', sans-serif;
+    text-align: left;
+}

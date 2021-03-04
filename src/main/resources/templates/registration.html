@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <link th:href="@{/style/header.css}" rel="stylesheet">
+    <link th:href="@{/style/login_registration.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=RocknRoll+One&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-<ul>
+<ul id="header">
     <li><a th:href="@{/}">Index</a></li>
     <li><a th:href="@{/recipes}">List Of Recipes</a></li>
     <li><a th:href="@{/add_recipe}">Add Recipe</a></li>
     <li><a th:href="@{/user_room}">User Room</a></li>
 </ul>
-<form th:action="@{/registration}" th:object="${user}" method="post">
-    <div>
-        <label>Name</label> <input id="name" th:field="*{name}"/>
-    </div>
-    <div>
-        <label>Email</label><input id="email" th:field="*{email}"/>
-    </div>
-    <div>
-        <label>Password</label> <input id="password" type="password" th:field="*{password}"/>
-    </div>
-    <div>
-        <button type="submit">Register</button>
-        <span>Already registered? <a href="/" th:href="@{/login}">Login
+<div id="content">
+    <form id="signup-form" th:action="@{/registration}" th:object="${user}" method="post">
+        <div id="form-title">Sign up</div>
+        <div>
+            <label>Name:</label> <input type="text" id="name" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Email:</label><input type="text" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <label>Password:</label> <input id="password" type="password" th:field="*{password}"/>
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+        <div>
+    <span>Already registered? <a href="/" th:href="@{/login}">Login
                                     here</a></span>
-    </div>
-
-</form>
-
+        </div>
+    </form>
+</div>
 </body>
 </html>

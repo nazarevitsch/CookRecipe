@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
-    <title>Add Recipe</title>
+    <title>Update Recipe</title>
     <link th:href="@{/style/header.css}" rel="stylesheet">
     <link th:href="@{/style/recipe_creation_edition.css}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,6 +12,7 @@
           rel="stylesheet">
 </head>
 <body>
+
 <ul id="header">
     <li><a th:href="@{/}">Index</a></li>
     <li><a th:href="@{/recipes}">List Of Recipes</a></li>
@@ -21,13 +22,13 @@
 <div id="content">
     <div id="recipe-info">
         <label>Recipe name:</label>
-        <input type="text" id="name"/>
+        <input type="text" id="name" th:value="${recipe.getName()}"/>
         <label>Recipe description:</label>
-        <textarea placeholder="Description" id="description"></textarea>
-        <label>Choose recipe picture:</label>
-        <input type="file" onchange="showImage(event)" id="mainImage"/>
-        <img id="showMainImage"/>
-        <button type="button" onclick="add_recipe()">Add Recipe</button>
+        <textarea placeholder="Description" id="description" th:utext="${recipe.getDescription()}"></textarea>
+        <label>Recipe picture:</label>
+        <input style="border: none" type="file" onchange="showImage(event)" id="mainImage"/>
+        <img id="showMainImage" th:src="${recipe.getImageLink()}"/>
+        <button type="button" th:onclick="'update_recipe()'">Update Product</button>
     </div>
 </div>
 </body>

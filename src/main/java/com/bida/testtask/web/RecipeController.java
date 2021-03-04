@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+
 @Controller
 public class RecipeController {
 
@@ -28,8 +30,6 @@ public class RecipeController {
 
     @GetMapping("/recipe")
     public String getRecipePage(@RequestParam Long id, Model model){
-        System.out.println(id);
-        System.out.println(recipeService.getRecipeById(id));
         model.addAttribute("recipe", recipeService.getRecipeById(id));
         return "recipe";
     }
@@ -41,12 +41,10 @@ public class RecipeController {
     }
 
     @PostMapping("/add_recipe_image")
-    public ResponseEntity addRecipeImage(@RequestParam("image") MultipartFile file, @RequestParam("id") Long id) {
-        System.out.println(id);
+    public ResponseEntity addRecipeImage(@RequestParam("image") MultipartFile file, @RequestParam("id") Long id, Principal principal) {
         try {
             String link = workWithAWS.uploadFile(file.getName(), file.getInputStream());
-            System.out.println(link);
-            recipeService.setImageLinkById(id, link);
+            recipeService.setImageLinkById(id, link, principal.getName());
         } catch (Exception e){
             System.out.println("ERROR");
         }
@@ -55,15 +53,26 @@ public class RecipeController {
 
     @PostMapping("/add_recipe")
     @ResponseBody
-    public String addRecipe(@RequestBody Recipe recipe){
-        System.out.println(recipe);
-        return String.valueOf(recipeService.save(recipe).getId());
+    public String addRecipe(@RequestBody Recipe recipe, Principal principal){
+        return String.valueOf(recipeService.save(recipe, principal.getName()).getId());
     }
 
     @GetMapping("/fork_recipe")
-    public String getForkRecipe(@RequestParam Long id, Model model){
-        System.out.println(id);
+    public String getForkRecipePage(@RequestParam Long id, Model model){
         model.addAttribute("recipe", recipeService.getRecipeById(id));
         return "fork_recipe";
+    }
+
+    @GetMapping("/update_recipe")
+    public String getUpdateRecipePage(@RequestParam Long id, Model model){
+        model.addAttribute("recipe", recipeService.getRecipeById(id));
+        return "update_recipe";
+    }
+
+    @PostMapping("/update_recipe")
+    public ResponseEntity getForkRecipe(@RequestBody Recipe recipe, Principal principal){
+        System.out.println(recipe);
+        recipeService.updateRecipeNameAndDescriptionByUserEmail(recipe, principal.getName());
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

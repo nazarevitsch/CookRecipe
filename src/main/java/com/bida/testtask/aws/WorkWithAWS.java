@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
+import java.util.Date;
 
 @Component
 public class WorkWithAWS {
@@ -45,7 +46,8 @@ public class WorkWithAWS {
 
     public String uploadFile(String name, InputStream inputStream){
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.addUserMetadata("shop", "image");
+        name += (new Date().getTime());
+        metadata.addUserMetadata("shop", name);
         PutObjectRequest putObjectRequest = new PutObjectRequest(awsBucketName, name, inputStream, metadata);
         s3client.putObject(putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead));
         return s3client.getUrl(awsBucketName, name).toString();
