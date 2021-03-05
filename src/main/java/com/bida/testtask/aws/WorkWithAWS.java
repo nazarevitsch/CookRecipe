@@ -18,11 +18,6 @@ import java.util.Date;
 @Component
 public class WorkWithAWS {
 
-    //    @Value("${aws.access}")
-    private String awsAccess;
-    //    @Value("${aws.secret}")
-    private String awsSecret;
-    //    @Value("${aws.name}")
     private String awsBucketName;
 
     private AWSCredentials credentials;
@@ -32,10 +27,7 @@ public class WorkWithAWS {
     public WorkWithAWS(@Value("${aws.name}") String awsBucketName,
                        @Value("${aws.secret}") String awsSecret,
                        @Value("${aws.access}") String awsAccess){
-//    public WorkWithAWS(String awsBucketName, String awsSecret, String awsAccess){
         this.awsBucketName = awsBucketName;
-        this.awsSecret = awsSecret;
-        this.awsAccess = awsAccess;
         credentials = new BasicAWSCredentials(awsAccess, awsSecret);
         s3client = AmazonS3ClientBuilder
                 .standard()
