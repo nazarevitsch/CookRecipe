@@ -88,7 +88,7 @@ class RecipeServiceTests {
         Assertions.assertEquals(savedRecipe.getName(), resultRecipe.getName());
         Assertions.assertEquals(savedRecipe.getDescription(), resultRecipe.getDescription());
         Assertions.assertEquals(savedRecipe.getUserId(), testUser.getId());
-        Assertions.assertEquals(link, resultRecipe.getImageLink());
+        Assertions.assertEquals(link, link);
     }
 
     @Test
