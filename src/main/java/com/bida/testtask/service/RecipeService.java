@@ -16,18 +16,18 @@ public class RecipeService {
     @Autowired
     private UserService userService;
 
-    public Recipe save(Recipe recipe, String userEmail) {//
+    public Recipe save(Recipe recipe, String userEmail) {
         recipe.setUserId(userService.findUserByEmail(userEmail).getId());
         return recipeRepository.save(recipe);
     }
 
-    public List<Recipe> getAllRecipeByUserEmail(String email){//
-        return recipeRepository.findAllByUserId(userService.findUserByEmail(email).getId());
+    public List<Recipe> getAllRecipeByUserEmail(String email){
+        return recipeRepository.findAllByUserIdOrderByName(userService.findUserByEmail(email).getId());
     }
 
     public Recipe getRecipeById(Long id){
         return recipeRepository.getById(id);
-    }//
+    }
 
     public List<Recipe> getAllRecipesSortedByName(){
         return recipeRepository.findAllByOrderByName();
@@ -37,7 +37,7 @@ public class RecipeService {
         recipeRepository.setImageLinkByIdAndUserId(id, link, userService.findUserByEmail(email).getId());
     }
 
-    public void updateRecipeNameAndDescriptionByUserEmail(Recipe recipe, String email){//
+    public void updateRecipeNameAndDescriptionByUserEmail(Recipe recipe, String email){
         recipeRepository.updateRecipeNameAndDescriptionByIdAndUserId(recipe.getId(), recipe.getName(),
                 recipe.getDescription(), userService.findUserByEmail(email).getId());
     }
