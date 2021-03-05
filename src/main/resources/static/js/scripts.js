@@ -11,7 +11,9 @@ function add_recipe() {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
     };
-    add_recipe_request(recipe);
+    if (checkData(recipe) && checkImageUploading()) {
+        add_recipe_request(recipe);
+    }
 }
 
 function fork_recipe() {
@@ -20,7 +22,9 @@ function fork_recipe() {
         description: document.getElementById('description').value,
         parentId: document.getElementById('forkedRecipeId').value
     };
-    add_recipe_request(recipe);
+    if (checkData(recipe) && checkImageUploading()) {
+        add_recipe_request(recipe);
+    }
 }
 
 function update_recipe() {
@@ -29,18 +33,20 @@ function update_recipe() {
         description: document.getElementById('description').value,
         id: document.getElementById('recipeId').value,
     };
-    $.ajax({
-        url: "/update_recipe",
-        type: "POST",
-        contentType: 'application/json',
-        dataType: 'json',
-        async: false,
-        data: JSON.stringify(recipe),
-        success: (date) => {
-        }
-    });
-    if (document.getElementById('mainImage').files[0] !== undefined){
-        uploadMainImage(recipe.id)
+    if (checkData(recipe)) {
+        $.ajax({
+            url: "/update_recipe",
+            type: "POST",
+            contentType: 'application/json',
+            dataType: 'json',
+            async: false,
+            data: JSON.stringify(recipe),
+            success: (date) => {
+            }
+        });
+        if (document.getElementById('mainImage').files[0] !== undefined){
+            uploadMainImage(recipe.id)
+        } else window.location.replace("/recipe?id=" + recipe.id);
     }
 }
 
@@ -68,4 +74,20 @@ function uploadMainImage(id) {
     }).then(data => {
         if (data.status === 200) window.location.replace("/recipe?id=" + id);
     });
+}
+
+ function checkData(recipe){
+     if (recipe.name === '' || recipe.description === '') {
+         alert("Fill all fields!");
+         return false;
+     }
+     return true
+ }
+
+function checkImageUploading(){
+    if (document.getElementById('mainImage').files[0] === undefined){
+        alert("Upload some image!");
+        return false;
+    }
+    return true
 }

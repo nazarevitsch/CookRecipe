@@ -10,9 +10,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface RecipeDAO extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    List<Recipe> findAll();
+    List<Recipe> findAllByOrderByName();
 
     List<Recipe> findAllByUserId(Long userId);
 

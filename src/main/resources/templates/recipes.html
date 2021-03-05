@@ -24,7 +24,7 @@
                 <div class="recipe-info">
                     <p class="recipe-name" th:utext="'Title: ' + ${recipe.getName()}"></p>
                     <p class="recipe-creation"
-                       th:utext="'Date of creation: ' + ${recipe.getCreationDate()} + '  ' + ${recipe.getCreationTime()}"></p>
+                       th:utext="'Date of creation: ' + ${recipe.getCreateDate()}"></p>
                     <p class="recipe-description" th:utext="'Description:   ' + ${recipe.getDescription()}"></p>
                 </div>
             </div>

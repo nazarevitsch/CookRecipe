@@ -20,18 +20,24 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String getRegistrationPage(Model model){
         model.addAttribute("user", new UserRegistrationDTO());
+        model.addAttribute("error", null);
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerNewUser(@ModelAttribute UserRegistrationDTO userDTO,
-                                  BindingResult result){
+    public String registerNewUser(@ModelAttribute UserRegistrationDTO userDTO, Model model){
         User existedUser = userService.findUserByEmail(userDTO.getEmail());
         if (existedUser != null){
-            result.rejectValue("username", null, "There is already an account registered with that username");
+            model.addAttribute("user", new UserRegistrationDTO());
+            model.addAttribute("error", "This user is already existed!");
+            return "registration";
         }
-        userService.save(userDTO);
-        return "index";
+        if (userService.save(userDTO) == null){
+            model.addAttribute("user", new UserRegistrationDTO());
+            model.addAttribute("error", "Email or Password are unacceptable!");
+            return "registration";
+        }
+        return "login";
     }
 
     @GetMapping("/login")

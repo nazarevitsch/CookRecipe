@@ -24,7 +24,7 @@ public class RecipeController {
 
     @GetMapping("/recipes")
     public String getRecipesPage(Model model){
-        model.addAttribute("recipes", recipeService.getAllRecipes());
+        model.addAttribute("recipes", recipeService.getAllRecipesSortedByName());
         return "recipes";
     }
 
@@ -36,7 +36,6 @@ public class RecipeController {
 
     @GetMapping("/add_recipe")
     public String getRecipeAddPage(Model model){
-        model.addAttribute("recipes", recipeService.getAllRecipes());
         return "add_recipe";
     }
 

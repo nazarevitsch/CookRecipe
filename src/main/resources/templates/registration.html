@@ -19,6 +19,7 @@
 <div id="content">
     <form id="signup-form" th:action="@{/registration}" th:object="${user}" method="post">
         <div id="form-title">Sign up</div>
+        <label th:if="${error != null}" th:utext="${error}" style="color: red"></label>
         <div>
             <label>Name:</label> <input type="text" id="name" th:field="*{name}"/>
         </div>

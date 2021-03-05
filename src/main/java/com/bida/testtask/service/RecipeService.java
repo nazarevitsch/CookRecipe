@@ -1,48 +1,44 @@
 package com.bida.testtask.service;
 
 import com.bida.testtask.domain.Recipe;
-import com.bida.testtask.repository.RecipeDAO;
+import com.bida.testtask.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Service
 public class RecipeService {
 
     @Autowired
-    private RecipeDAO recipeDAO;
+    private RecipeRepository recipeRepository;
 
     @Autowired
     private UserService userService;
 
-    public Recipe save(Recipe recipe, String userEmail) {
-        recipe.setCreationDate(new Date(new java.util.Date().getTime()));
-        recipe.setCreationTime(new Time(recipe.getCreationDate().getTime()));
+    public Recipe save(Recipe recipe, String userEmail) {//
         recipe.setUserId(userService.findUserByEmail(userEmail).getId());
-        return recipeDAO.save(recipe);
+        return recipeRepository.save(recipe);
     }
 
-    public List<Recipe> getAllRecipeByUserEmail(String email){
-        return recipeDAO.findAllByUserId(userService.findUserByEmail(email).getId());
+    public List<Recipe> getAllRecipeByUserEmail(String email){//
+        return recipeRepository.findAllByUserId(userService.findUserByEmail(email).getId());
     }
 
     public Recipe getRecipeById(Long id){
-        return recipeDAO.getById(id);
-    }
+        return recipeRepository.getById(id);
+    }//
 
-    public List<Recipe> getAllRecipes(){
-        return recipeDAO.findAll();
+    public List<Recipe> getAllRecipesSortedByName(){
+        return recipeRepository.findAllByOrderByName();
     }
 
     public void setImageLinkById(Long id, String link, String email){
-        recipeDAO.setImageLinkByIdAndUserId(id, link, userService.findUserByEmail(email).getId());
+        recipeRepository.setImageLinkByIdAndUserId(id, link, userService.findUserByEmail(email).getId());
     }
 
-    public void updateRecipeNameAndDescriptionByUserEmail(Recipe recipe, String email){
-        recipeDAO.updateRecipeNameAndDescriptionByIdAndUserId(recipe.getId(), recipe.getName(),
+    public void updateRecipeNameAndDescriptionByUserEmail(Recipe recipe, String email){//
+        recipeRepository.updateRecipeNameAndDescriptionByIdAndUserId(recipe.getId(), recipe.getName(),
                 recipe.getDescription(), userService.findUserByEmail(email).getId());
     }
 }

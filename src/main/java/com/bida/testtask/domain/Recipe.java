@@ -1,14 +1,16 @@
 package com.bida.testtask.domain;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "recipes")
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -22,11 +24,9 @@ public class Recipe {
     @Column(name = "parent_id")
     private Long parentId;
 
-    @Column(name = "creation_date")
-    private Date creationDate;
-
-    @Column(name = "creation_time")
-    private Time creationTime;
+    @CreationTimestamp
+    @Column(name = "create_date")
+    private Timestamp createDate;
 
     @Column(name = "description")
     private String description;
@@ -64,14 +64,6 @@ public class Recipe {
         this.parentId = parentId;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -88,14 +80,6 @@ public class Recipe {
         this.userId = userId;
     }
 
-    public Time getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Time creationTime) {
-        this.creationTime = creationTime;
-    }
-
     public String getImageLink() {
         return imageLink;
     }
@@ -104,14 +88,36 @@ public class Recipe {
         this.imageLink = imageLink;
     }
 
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    @Override
+    public int compareTo(Recipe recipe){
+        return this.name.compareTo(recipe.name);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Recipe)) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(name, recipe.name) &&
+                Objects.equals(description, recipe.description);
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", parentId=" + parentId +
-                ", creationDate=" + creationDate +
-                ", creationTime=" + creationTime +
+                ", creationDate=" + createDate +
                 ", description='" + description + '\'' +
                 ", userId=" + userId +
                 ", imageLink='" + imageLink + '\'' +

@@ -21,9 +21,10 @@
     <div id="recipe-info">
         <div>
             <h2 th:utext="${recipe.getName()}"></h2>
-            <button th:onclick="'loadPage(' + ${recipe.getId()} + ')'"><i class="fas fa-code-branch"></i>Fork this Recipe</button>
+            <a th:href="'/fork_recipe?id=' + ${recipe.getId()}"><button><i class="fas fa-code-branch"> </i>Fork this Recipe</button></a>
         </div>
-        <label>This Recipe was forked from it: <a th:href="'/recipe?id=' + ${recipe.getId()}">Recipe</a></label>
+        <label th:if="${recipe.getParentId() != null}">This Recipe was forked from it: <a th:href="'/recipe?id=' + ${recipe.getParentId()}">Recipe</a></label>
+        <label  th:utext="'Date of creation: ' + ${recipe.getCreateDate()}"></label>
         <div id="photo-description">
             <img th:src="${recipe.getImageLink()}">
             <p th:utext="${recipe.getDescription()}"></p>
@@ -31,9 +32,4 @@
     </div>
 </div>
 </body>
-<script>
-    function loadPage(id) {
-        window.location.replace('/fork_recipe?id=' + id);
-    }
-</script>
 </html>

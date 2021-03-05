@@ -21,6 +21,7 @@
 </ul>
 <div id="content">
     <div id="recipe-info">
+        <input style="display: none" th:id="recipeId" th:value="${recipe.getId()}">
         <label>Recipe name:</label>
         <input type="text" id="name" th:value="${recipe.getName()}"/>
         <label>Recipe description:</label>

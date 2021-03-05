@@ -1,6 +1,8 @@
 package com.bida.testtask.service.dto;
 
 
+import com.bida.testtask.domain.User;
+
 public class UserRegistrationDTO {
 
     private String name;
@@ -37,6 +39,14 @@ public class UserRegistrationDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getUser(){
+        User user = new User();
+        user.setName(this.getName());
+        user.setEmail(this.getEmail());
+        user.setPassword(this.getPassword());
+        return user;
     }
 
     @Override
